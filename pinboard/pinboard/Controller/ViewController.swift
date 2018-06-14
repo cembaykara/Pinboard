@@ -1,0 +1,82 @@
+//
+//  ViewController.swift
+//  pinboard
+//
+//  Created by Baris Cem Baykara on /116/18.
+//  Copyright © 2018 Baris Cem Baykara. All rights reserved.
+//
+
+import UIKit
+import GenericFetcher
+
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
+    
+    //MARK: Setup CollectionView
+    var collectionView: UICollectionView!
+    let layout = UICollectionViewFlowLayout()
+    let refresher = UIRefreshControl()
+    var fetchedData = [Object]()
+    
+    func createCollectionView() {
+        layout.minimumLineSpacing = 19
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width/2.3, height: 210)
+        
+        refresher.addTarget(self, action: #selector(willFetch), for: .valueChanged)
+        
+        collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        collectionView.autoSetDimension(.height, toSize: view.frame.height - 60)
+        collectionView.register(PhotoViewCell.self, forCellWithReuseIdentifier: "photoCell")
+        collectionView.backgroundColor = .clear
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.addSubview(refresher)
+        self.view.addSubview(collectionView)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return fetchedData.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoViewCell
+        let obj = fetchedData[indexPath.row]
+        cell.userName.text = obj.user?.username
+        cell.photo.loadImage(withURL: (obj.user?.profileImage?.large)!)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(0.0, 12, 12, 12)
+    }
+    
+    // Constraints for subview
+    var didSetupConstraints = false
+    override func updateViewConstraints() {
+        if (!didSetupConstraints) {
+            collectionView.autoPinEdge(toSuperviewEdge: .top, withInset: 60.0)
+            collectionView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
+            collectionView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
+            didSetupConstraints = true
+        }
+        super.updateViewConstraints()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = .white
+        createCollectionView()
+        willFetch()
+    }
+    
+    @objc func willFetch(){
+        let fetcher = Fetcher()
+        fetchedData.removeAll()
+        fetcher.fetch(with: .json, urlStr: "http://pastebin.com/raw/wgkJgazE") { (data: [Object]) in
+            data.forEach({
+                self.fetchedData.append($0)
+            })
+            self.collectionView.reloadData()
+            self.refresher.endRefreshing()
+        }
+    }
+}
