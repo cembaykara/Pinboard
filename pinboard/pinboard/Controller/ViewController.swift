@@ -65,6 +65,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             collectionView.autoPinEdge(toSuperviewEdge: .top, withInset: 60.0)
             collectionView.autoPinEdge(toSuperviewEdge: .left, withInset: 0)
             collectionView.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
+            
             didSetupConstraints = true
         }
         super.updateViewConstraints()
