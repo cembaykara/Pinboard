@@ -9,7 +9,7 @@
 import UIKit
 import GenericFetcher
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     //MARK: Setup CollectionView
     var collectionView: UICollectionView!
