@@ -136,7 +136,7 @@
 		91AB963F20CF150F00541B2C /* pinboard */ = {
 			isa = PBXGroup;
 			children = (
-				91EA013620D282FE00A11812 /* Helpers */,
+				91EA013620D282FE00A11812 /* Helper */,
 				91CD957420D1F77500E84793 /* LaunchScreen.storyboard */,
 				91AB964020CF150F00541B2C /* AppDelegate.swift */,
 				91AB964720CF151100541B2C /* Assets.xcassets */,
@@ -173,13 +173,12 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		91EA013620D282FE00A11812 /* Helpers */ = {
+		91EA013620D282FE00A11812 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
 				91EA013820D2830C00A11812 /* Colors.swift */,
 			);
-			name = Helpers;
-			path = "New Group";
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		91EA014020D2A01200A11812 /* pinboardTests */ = {
