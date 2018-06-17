@@ -14,14 +14,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //MARK: Setup CollectionView
     var collectionView: UICollectionView!
     let layout = UICollectionViewFlowLayout()
-    let refresher = UIRefreshControl()
     var fetchedData = [Object]()
+    
+    lazy var refresher: UIRefreshControl={
+        let controller = UIRefreshControl()
+        controller.attributedTitle = NSAttributedString(string: "Refreshing")
+        controller.addTarget(self, action: #selector(willFetch), for: .valueChanged)
+        return controller
+    }()
     
     func createCollectionView() {
         layout.minimumLineSpacing = 19
         layout.itemSize = CGSize(width: UIScreen.main.bounds.width/2.3, height: 210)
-        
-        refresher.addTarget(self, action: #selector(willFetch), for: .valueChanged)
+        layout.sectionInset = UIEdgeInsetsMake(0.0, 12, 12, 12)
         
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         collectionView.autoSetDimension(.height, toSize: view.frame.height - 60)
@@ -53,11 +58,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
         })
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(0.0, 12, 12, 12)
-    }
-    
+
     // Constraints for subview
     var didSetupConstraints = false
     override func updateViewConstraints() {
