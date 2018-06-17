@@ -13,7 +13,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     //MARK: Setup CollectionView
     var collectionView: UICollectionView!
-    let layout = UICollectionViewFlowLayout()
+    let layout = Layout()
     var fetchedData = [Object]()
     
     lazy var refresher: UIRefreshControl={
@@ -24,10 +24,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }()
     
     func createCollectionView() {
-        layout.minimumLineSpacing = 19
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width/2.3, height: 210)
-        layout.sectionInset = UIEdgeInsetsMake(0.0, 12, 12, 12)
-        
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         collectionView.autoSetDimension(.height, toSize: view.frame.height - 60)
         collectionView.register(PhotoViewCell.self, forCellWithReuseIdentifier: "photoCell")
@@ -57,6 +53,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             cell.alpha = 1
             cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
         })
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.row == 0 {
+            return CGSize(width: UIScreen.main.bounds.width - 24, height: UIScreen.main.bounds.height/3)
+        }
+        return CGSize(width: (UIScreen.main.bounds.width/2)-30, height: UIScreen.main.bounds.height/3)
     }
 
     // Constraints for subview
