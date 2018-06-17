@@ -11,9 +11,6 @@ import PureLayout
 
 class PhotoViewCell: UICollectionViewCell {
 
-   private let cardHeight : CGFloat = 210
-   private let cardWidth : CGFloat = 130
-    
     let containerView : UIView = {
         let view = UIView()
         view.layer.cornerRadius = 6
@@ -24,27 +21,23 @@ class PhotoViewCell: UICollectionViewCell {
     
     let photo : UIImageView = {
        let view = UIImageView()
-        view.contentMode = UIViewContentMode.scaleAspectFit
+        view.contentMode = UIViewContentMode.scaleAspectFill
         return view
     }()
-    
+
     let userName : UILabel = {
         let label = UILabel()
         label.textColor = UIColor.customGray.darkGray
-        label.autoSetDimension(.height, toSize: 16)
+        label.autoSetDimension(.height, toSize: 18)
         label.font = UIFont.systemFont(ofSize: 9)
         return label
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        containerView.autoSetDimension(.height, toSize: cardHeight)
-        photo.autoSetDimension(.height, toSize: UIScreen.main.bounds.width/2.3)
-        
+
         containerView.addSubview(photo)
         containerView.addSubview(userName)
-        
         self.addSubview(containerView)
         
         createShadow()
@@ -60,8 +53,9 @@ class PhotoViewCell: UICollectionViewCell {
         
         if (!didSetupConstraints) {
             
-            containerView.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets.zero, excludingEdge: .bottom)
+            containerView.autoPinEdgesToSuperviewEdges()
             photo.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets.zero, excludingEdge: .bottom)
+            photo.autoMatch(.height, to: .width, of: containerView)
             
             userName.autoPinEdge(toSuperviewEdge: .left, withInset: 8.0)
             userName.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
@@ -69,7 +63,6 @@ class PhotoViewCell: UICollectionViewCell {
             
             didSetupConstraints = true
         }
-        
         super.updateConstraints()
     }
     
