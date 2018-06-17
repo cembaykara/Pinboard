@@ -81,7 +81,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @objc func willFetch(){
         let fetcher = Fetcher()
         fetchedData.removeAll()
-        fetcher.fetch(with: .json, urlStr: "http://pastebin.com/raw/wgkJgazE") { (data: [Object]) in
+        fetcher.fetch(with: .json, urlStr: "http://pastebin.com/raw/wgkJgazE") { (data: [Object],_ ,_) in
             data.forEach({
                 self.fetchedData.append($0)
             })

@@ -22,9 +22,9 @@ public class Fetcher {
     ///
     /// - Parameters:
     ///   - format: .json or .xml
-    public func fetch<T: Decodable>(with format: DecodableFormat, urlStr: String, completion: @escaping (T) -> ()) {
+    public func fetch<T: Decodable>(with format: DecodableFormat, urlStr: String, completion: @escaping (T, URLResponse?, Error?) -> ()) {
         let url = URL(string: urlStr)
-        URLSession.shared.dataTask(with: url!) { (receivedData, _, err) in
+        URLSession.shared.dataTask(with: url!) { (receivedData, response, err) in
             DispatchQueue.main.async {
                 if let err = err {
                     print("Failed to fetch:", err)
@@ -39,7 +39,7 @@ public class Fetcher {
                         let decoder = JSONDecoder()
                         decoder.keyDecodingStrategy = .convertFromSnakeCase
                         let object = try decoder.decode(T.self, from: receivedData)
-                        completion(object)
+                        completion(object, response, err)
                     } catch let jsonError {
                         print("Failed to decode json:", jsonError)
                     }

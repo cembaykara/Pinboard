@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		385FAF5DB0B407AB8D534960 /* Pods_pinboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFBCC480E9B457A1C9EEC8E /* Pods_pinboard.framework */; };
+		91558B7B20D67DE500D9A21B /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DFADD120CF3944008D40C4 /* Object.swift */; };
 		9181FE1120CF17E500D8E6BD /* PhotoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9181FE1020CF17E500D8E6BD /* PhotoViewCell.swift */; };
 		91AB964120CF150F00541B2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AB964020CF150F00541B2C /* AppDelegate.swift */; };
 		91AB964320CF150F00541B2C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AB964220CF150F00541B2C /* ViewController.swift */; };
@@ -385,6 +386,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91558B7B20D67DE500D9A21B /* Object.swift in Sources */,
 				91EA014220D2A01200A11812 /* pinboardTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
