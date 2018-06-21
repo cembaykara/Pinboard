@@ -13,7 +13,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     //MARK: Setup CollectionView
     let yOffset :CGFloat = 60
-    let layout = Layout(columnCount: 2)
+    let layout = Layout(xSpacing: 12, ySpacing: 12.0, columnCount: 2)
     var collectionView: UICollectionView!
     var fetchedData = [Object]()
     
@@ -27,7 +27,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func createCollectionView() {
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         collectionView.autoSetDimension(.height, toSize: view.frame.height - yOffset)
-        collectionView.contentInset = UIEdgeInsetsMake(6.0, 6, 6.0, 6.0)
+        collectionView.contentInset = UIEdgeInsetsMake(6.0, 0, 0, 0)
         collectionView.register(PhotoViewCell.self, forCellWithReuseIdentifier: "photoCell")
         collectionView.backgroundColor = .clear
         collectionView.dataSource = self
@@ -46,13 +46,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         cell.userName.text = obj.user?.username
         cell.photo.loadImage(withURL: (obj.user?.profileImage?.large)!)
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.row == 0 {
-            return layout.firstContentSize
-        }
-        return layout.contentSize
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
