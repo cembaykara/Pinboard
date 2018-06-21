@@ -1,0 +1,8 @@
+# Pinboard
+
+This is just a simple collectionView app to display a demo JSON object data. A custom layout file gives the layout simple customization options.
+
+# Usage
+```swift
+let layout = Layout(xSpacing: CGFLoat, ySpacing: CGFloat, columnCount: Int)
+```
