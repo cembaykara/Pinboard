@@ -23,3 +23,29 @@ struct Photos: Decodable {
     var medium: String?
     var large: String?
 }
+
+enum PhotoSize {
+    case small
+    case medium
+    case large
+}
+
+extension Object {
+    
+    func userName() -> String {
+        guard let userName = self.user?.username else {return ""}
+        return userName
+    }
+    
+    func photo(_ withSize: PhotoSize) -> String?{
+        switch withSize {
+        case .small:
+            return user?.profileImage?.small
+        case .medium:
+            return user?.profileImage?.medium
+        case .large:
+            return user?.profileImage?.large
+        }
+    }
+    
+}
