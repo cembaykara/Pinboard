@@ -10,7 +10,7 @@ import UIKit
 
 class Layout: UICollectionViewFlowLayout {
     
-    
+    //MARK: Properties
     private(set) var columnCount: Int
     private(set) var xSpacing: CGFloat
     private(set) var ySpacing: CGFloat
@@ -20,7 +20,6 @@ class Layout: UICollectionViewFlowLayout {
         let collectionViewInsets = collectionView.contentInset
         return (collectionView.bounds.width) - (collectionViewInsets.left + collectionViewInsets.right)
     }
-    
     
     private var columnWidth: CGFloat{
        return contentWidth / CGFloat(columnCount)
@@ -38,6 +37,8 @@ class Layout: UICollectionViewFlowLayout {
     
     private var attributesCache = [UICollectionViewLayoutAttributes]()
     
+    
+    //MARK: Initializers
     init(xSpacing: CGFloat, ySpacing: CGFloat, columnCount columns: Int) {
         columnCount = columns
         self.xSpacing = xSpacing
@@ -49,6 +50,8 @@ class Layout: UICollectionViewFlowLayout {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //MARK: Methods
     override func prepare() {
 
         guard let collectionView = collectionView, attributesCache.isEmpty == true else {return}
