@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        let initialViewController = ViewController()
+        let initialViewController = PinboardViewController()
         
         self.window?.rootViewController = initialViewController
         self.window?.makeKeyAndVisible()
