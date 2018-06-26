@@ -6,14 +6,16 @@
 //  Copyright © 2018 Baris Cem Baykara. All rights reserved.
 //
 
-import UIKit
+protocol DataFetcherDelegate {
+    func didRefresh()
+}
 
-import GenericFetcher
+import UIKit
 
 class PinboardCollectionView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    
     var fetchedData = [Object]()
+    var fetchDelegate: DataFetcherDelegate?
     
     lazy var refresher: UIRefreshControl={
         let controller = UIRefreshControl()
@@ -21,19 +23,16 @@ class PinboardCollectionView: UICollectionView, UICollectionViewDataSource, UICo
         controller.addTarget(self, action: #selector(willFetch), for: .valueChanged)
         return controller
     }()
-    
-    init(collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(frame: .zero, collectionViewLayout: layout)
+
+    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(frame: frame, collectionViewLayout: layout)
         
-        self.autoSetDimension(.height, toSize: 1)
-        self.delegate = self
-        self.dataSource = self
-        self.contentInset = UIEdgeInsetsMake(6.0, 0.0, 12.0, 0.0)
-        self.register(PhotoViewCell.self, forCellWithReuseIdentifier: "photoCell")
-        self.backgroundColor = .clear
-        self.addSubview(refresher)
-        willFetch()
-        
+        delegate = self
+        dataSource = self
+        contentInset = UIEdgeInsetsMake(6.0, 0.0, 12.0, 0.0)
+        register(PhotoViewCell.self, forCellWithReuseIdentifier: "photoCell")
+        backgroundColor = .clear
+        addSubview(refresher)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,17 +40,10 @@ class PinboardCollectionView: UICollectionView, UICollectionViewDataSource, UICo
     }
     
     @objc func willFetch(){
-        let fetcher = Fetcher()
-        fetchedData.removeAll()
-        fetcher.fetch(with: .json, urlStr: "http://pastebin.com/raw/wgkJgazE") { (data: [Object],_ ,_) in
-            data.forEach({
-                self.fetchedData.append($0)
-            })
-            self.reloadData()
-            self.refresher.endRefreshing()
-        }
+        fetchDelegate?.didRefresh()
     }
     
+    //MARK: Delegate Methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return fetchedData.count
     }
@@ -71,17 +63,6 @@ class PinboardCollectionView: UICollectionView, UICollectionViewDataSource, UICo
             cell.alpha = 1
             cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
         })
-    }
-    
-    var didSetupConstraints = false
-    override func updateConstraints() {
-        
-        if (!didSetupConstraints) {
-            self.autoPinEdgesToSuperviewEdges()
-            didSetupConstraints = true
-        }
-        
-        super.updateConstraints()
     }
     
 }
