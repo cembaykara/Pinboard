@@ -17,6 +17,7 @@
 		91CD957520D1F77500E84793 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91CD957420D1F77500E84793 /* LaunchScreen.storyboard */; };
 		91D7BC2520D1F0EE003056A4 /* GenericFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D7BC2120D1F076003056A4 /* GenericFetcher.framework */; };
 		91D7BC2620D1F0EE003056A4 /* GenericFetcher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 91D7BC2120D1F076003056A4 /* GenericFetcher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		91DD324120E1B85100A5E481 /* PinboardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DD324020E1B85100A5E481 /* PinboardCollectionView.swift */; };
 		91DFADD220CF3944008D40C4 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DFADD120CF3944008D40C4 /* Object.swift */; };
 		91EA013920D2830C00A11812 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EA013820D2830C00A11812 /* Colors.swift */; };
 		91EA014220D2A01200A11812 /* pinboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EA014120D2A01200A11812 /* pinboardTests.swift */; };
@@ -79,6 +80,7 @@
 		91AB964C20CF151100541B2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91CD957420D1F77500E84793 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		91D7BC1B20D1F075003056A4 /* GenericFetcher.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GenericFetcher.xcodeproj; path = ../GenericFetcher/GenericFetcher.xcodeproj; sourceTree = "<group>"; };
+		91DD324020E1B85100A5E481 /* PinboardCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinboardCollectionView.swift; sourceTree = "<group>"; };
 		91DFADD120CF3944008D40C4 /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 		91EA013820D2830C00A11812 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		91EA013F20D2A01200A11812 /* pinboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pinboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				9181FE1020CF17E500D8E6BD /* PhotoViewCell.swift */,
+				91DD324020E1B85100A5E481 /* PinboardCollectionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 			files = (
 				91EA013920D2830C00A11812 /* Colors.swift in Sources */,
 				9181FE1120CF17E500D8E6BD /* PhotoViewCell.swift in Sources */,
+				91DD324120E1B85100A5E481 /* PinboardCollectionView.swift in Sources */,
 				91AB964320CF150F00541B2C /* ViewController.swift in Sources */,
 				91AB964120CF150F00541B2C /* AppDelegate.swift in Sources */,
 				91DFADD220CF3944008D40C4 /* Object.swift in Sources */,
