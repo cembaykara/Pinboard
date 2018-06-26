@@ -12,7 +12,7 @@
 		91722DA220D71B0E00AF19D8 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91722DA120D71B0E00AF19D8 /* Layout.swift */; };
 		9181FE1120CF17E500D8E6BD /* PhotoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9181FE1020CF17E500D8E6BD /* PhotoViewCell.swift */; };
 		91AB964120CF150F00541B2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AB964020CF150F00541B2C /* AppDelegate.swift */; };
-		91AB964320CF150F00541B2C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AB964220CF150F00541B2C /* ViewController.swift */; };
+		91AB964320CF150F00541B2C /* PinboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AB964220CF150F00541B2C /* PinboardViewController.swift */; };
 		91AB964820CF151100541B2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91AB964720CF151100541B2C /* Assets.xcassets */; };
 		91CD957520D1F77500E84793 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91CD957420D1F77500E84793 /* LaunchScreen.storyboard */; };
 		91D7BC2520D1F0EE003056A4 /* GenericFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D7BC2120D1F076003056A4 /* GenericFetcher.framework */; };
@@ -75,7 +75,7 @@
 		9181FE1020CF17E500D8E6BD /* PhotoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewCell.swift; sourceTree = "<group>"; };
 		91AB963D20CF150F00541B2C /* pinboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pinboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91AB964020CF150F00541B2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		91AB964220CF150F00541B2C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		91AB964220CF150F00541B2C /* PinboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinboardViewController.swift; sourceTree = "<group>"; };
 		91AB964720CF151100541B2C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91AB964C20CF151100541B2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91CD957420D1F77500E84793 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 		913FD5F020D1D69A00F880E5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				91AB964220CF150F00541B2C /* ViewController.swift */,
+				91AB964220CF150F00541B2C /* PinboardViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -383,7 +383,7 @@
 				91EA013920D2830C00A11812 /* Colors.swift in Sources */,
 				9181FE1120CF17E500D8E6BD /* PhotoViewCell.swift in Sources */,
 				91DD324120E1B85100A5E481 /* PinboardCollectionView.swift in Sources */,
-				91AB964320CF150F00541B2C /* ViewController.swift in Sources */,
+				91AB964320CF150F00541B2C /* PinboardViewController.swift in Sources */,
 				91AB964120CF150F00541B2C /* AppDelegate.swift in Sources */,
 				91DFADD220CF3944008D40C4 /* Object.swift in Sources */,
 				91722DA220D71B0E00AF19D8 /* Layout.swift in Sources */,
