@@ -11,6 +11,7 @@ import Foundation
 // Model objects for the given example URL
 struct Object: Decodable {
     var user: User?
+    var likes: Int?
 }
 
 struct User: Decodable {
@@ -35,6 +36,11 @@ extension Object {
     func userName() -> String {
         guard let userName = self.user?.username else {return ""}
         return userName
+    }
+    
+    func userLikes() -> String {
+        guard let userLikes = self.likes else {return ""}
+        return "\(userLikes)"
     }
     
     func photo(_ withSize: PhotoSize) -> String?{

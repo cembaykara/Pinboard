@@ -16,6 +16,7 @@ class PhotoViewCell: UICollectionViewCell {
         view.layer.cornerRadius = 6
         view.clipsToBounds = true
         view.backgroundColor = UIColor.cellBackgroundColor.white
+        view.layer.masksToBounds = true
         return view
     }()
     
@@ -32,15 +33,27 @@ class PhotoViewCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 9)
         return label
     }()
-
+    
+    let likes : UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.customGray.darkGray
+        label.autoSetDimension(.height, toSize: 14)
+        label.font = UIFont.systemFont(ofSize: 9)
+        return label
+    }()
+    
+    var centerPoint: CGPoint!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
+        centerPoint = center
         containerView.addSubview(photo)
         containerView.addSubview(userName)
-        self.addSubview(containerView)
-        
+        containerView.addSubview(likes)
+        addSubview(containerView)
         createShadow()
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -59,7 +72,11 @@ class PhotoViewCell: UICollectionViewCell {
             
             userName.autoPinEdge(toSuperviewEdge: .left, withInset: 8.0)
             userName.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
-            userName.autoPinEdge(.top, to: .bottom, of: photo, withOffset: 12.0)
+            userName.autoPinEdge(.top, to: .bottom, of: photo, withOffset: 8.0)
+            
+            likes.autoPinEdge(toSuperviewEdge: .left, withInset: 8.0)
+            likes.autoPinEdge(toSuperviewEdge: .right, withInset: 0)
+            likes.autoPinEdge(.top, to: .bottom, of: userName)
             
             didSetupConstraints = true
         }
