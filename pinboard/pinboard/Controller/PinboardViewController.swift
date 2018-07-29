@@ -9,7 +9,7 @@
 import UIKit
 import GenericFetcher
 
-class PinboardViewController: UIViewController, DataFetcherDelegate {
+class PinboardViewController: UIViewController, CollectionViewDataFetcherDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,11 +19,10 @@ class PinboardViewController: UIViewController, DataFetcherDelegate {
     }
     
     //MARK: Setup CollectionView
-    let yOffset :CGFloat = 60
-    let layout = Layout(xSpacing: 12, ySpacing: 12.0, columnCount: 2)
     var collectionView: PinboardCollectionView!
     
     func createCollectionView() {
+        let layout = Layout(xSpacing: 12, ySpacing: 12.0, columnCount: 2)
         collectionView = PinboardCollectionView(frame: view.frame, collectionViewLayout: layout)
         self.view.addSubview(collectionView)
         collectionView.fetchDelegate = self
@@ -32,14 +31,24 @@ class PinboardViewController: UIViewController, DataFetcherDelegate {
     func didRefresh() {
         let fetcher = Fetcher()
         var fetchedData = [Object]()
-        fetcher.fetch(with: .json, urlStr: "http://pastebin.com/raw/wgkJgazE") { (data: [Object],_ ,_) in
-            data.forEach({
+
+        fetcher.fetch(with: .json, urlStr: "http://pastebin.com/raw/wgkJgazE") { (data: [Object]?, error) in
+            
+            guard let receivedData = data else {
+                if let error = error {
+                print("\(error.description)")
+                }
+                return
+            }
+            
+            receivedData.forEach({
                 fetchedData.append($0)
             })
+            
             self.collectionView.reloadData()
             self.collectionView.fetchedData = fetchedData
             self.collectionView.refresher.endRefreshing()
         }
     }
-
+    
 }

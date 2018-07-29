@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9145A36E210DEB1E00F560E7 /* FetcherError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145A36D210DEB1E00F560E7 /* FetcherError.swift */; };
 		91D7BBFC20D1EE41003056A4 /* GenericFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D7BBF220D1EE41003056A4 /* GenericFetcher.framework */; };
 		91D7BC0120D1EE41003056A4 /* GenericFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7BC0020D1EE41003056A4 /* GenericFetcherTests.swift */; };
 		91D7BC0320D1EE41003056A4 /* GenericFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 91D7BBF520D1EE41003056A4 /* GenericFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9145A36D210DEB1E00F560E7 /* FetcherError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetcherError.swift; sourceTree = "<group>"; };
 		91D7BBF220D1EE41003056A4 /* GenericFetcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GenericFetcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91D7BBF520D1EE41003056A4 /* GenericFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenericFetcher.h; sourceTree = "<group>"; };
 		91D7BBF620D1EE41003056A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				91D7BC0E20D1EED8003056A4 /* Fetcher.swift */,
 				91D7BBF520D1EE41003056A4 /* GenericFetcher.h */,
 				91D7BBF620D1EE41003056A4 /* Info.plist */,
+				9145A36D210DEB1E00F560E7 /* FetcherError.swift */,
 			);
 			path = GenericFetcher;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9145A36E210DEB1E00F560E7 /* FetcherError.swift in Sources */,
 				91D7BC0F20D1EED8003056A4 /* Extensions.swift in Sources */,
 				91D7BC1020D1EED8003056A4 /* CacheHandler.swift in Sources */,
 				91D7BC1120D1EED8003056A4 /* Fetcher.swift in Sources */,

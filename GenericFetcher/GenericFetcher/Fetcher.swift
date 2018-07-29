@@ -22,31 +22,41 @@ public class Fetcher {
     ///
     /// - Parameters:
     ///   - format: .json or .xml
-    public func fetch<T: Decodable>(with format: DecodableFormat, urlStr: String, completion: @escaping (T, URLResponse?, Error?) -> ()) {
+    public func fetch<T: Decodable>(with format: DecodableFormat, urlStr: String, completion: @escaping (T?,FetcherError?) -> ()) {
         let url = URL(string: urlStr)
         URLSession.shared.dataTask(with: url!) { (receivedData, response, err) in
+            
             DispatchQueue.main.async {
-                if let err = err {
-                    print("Failed to fetch:", err)
-                    return
-                }
-                guard let receivedData = receivedData else { return }
                 
-                switch format {
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    completion(nil, .requestFailed)
+                    return}
+                
+                if httpResponse.statusCode == 200 {
                     
-                case .json:
-                    do {
-                        let decoder = JSONDecoder()
-                        decoder.keyDecodingStrategy = .convertFromSnakeCase
-                        let object = try decoder.decode(T.self, from: receivedData)
-                        completion(object, response, err)
-                    } catch let jsonError {
-                        print("Failed to decode json:", jsonError)
+                    guard let receivedData = receivedData else {
+                        completion(nil, .invalidData)
+                        return }
+                    
+                    switch format {
+                    case .json:
+                        
+                        do {
+                            let decoder = JSONDecoder()
+                            decoder.keyDecodingStrategy = .convertFromSnakeCase
+                            let object = try decoder.decode(T.self, from: receivedData)
+                            completion(object, nil)
+                            
+                        } catch {
+                           completion(nil, .jsonConversionFailed)
+                        }
+                        
+                    case .xml:
+                        //XML Parsing here
+                        return
                     }
-                    
-                case .xml:
-                    //XML Parsing here
-                   return
+                }else {
+                    completion(nil, .responseUnsuccessfull)
                 }
             }
         }.resume()

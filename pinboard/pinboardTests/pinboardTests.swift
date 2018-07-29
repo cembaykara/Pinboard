@@ -14,7 +14,7 @@ class pinboardTests: XCTestCase {
     func testExample() {
         let fetcher = Fetcher()
         var error = false
-        fetcher.fetch(with: .json, urlStr: "http://pastebin.com/raw/wgkJgazE") { (data: [Object], _, err) in
+        fetcher.fetch(with: .json, urlStr: "http://pastebin.com/raw/wgkJgazE") { (data: [Object]?, err) in
             if err != nil {
                 error = true
             }
