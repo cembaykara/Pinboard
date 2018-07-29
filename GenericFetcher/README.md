@@ -13,7 +13,7 @@ import GenericFetcher
 Fetcher
 ```swift
 let fetcher = Fetcher()
-fetcher.fetch(with: .json, urlStr: "URL_STRING") { (data: [Object]) in
+fetcher.fetch(with: .json, urlStr: "URL_STRING") { (data: [Object], error) in
 // Your Code Here
 }
 ```
