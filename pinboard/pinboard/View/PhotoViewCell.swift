@@ -42,12 +42,28 @@ class PhotoViewCell: UICollectionViewCell {
         return label
     }()
     
-    var centerPoint: CGPoint!
+    var centerPoint: CGPoint?
+    var isFocusedIn = false
+    var isFlipped = false {
+        didSet {
+            if isFlipped == true {
+                photo.isHidden = true
+                likes.isHidden = true
+                containerView.removeConstraints(containerView.constraints)
+                userName.autoCenterInSuperview()
+            } else {
+                didSetupConstraints = false
+                containerView.removeConstraints(containerView.constraints)
+                photo.isHidden = false
+                likes.isHidden = false
+                updateConstraints()
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        centerPoint = center
+
         containerView.addSubview(photo)
         containerView.addSubview(userName)
         containerView.addSubview(likes)

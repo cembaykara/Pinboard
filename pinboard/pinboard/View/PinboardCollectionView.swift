@@ -53,6 +53,7 @@ class PinboardCollectionView: UICollectionView, UICollectionViewDataSource, UICo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoViewCell
         let user = fetchedData[indexPath.row]
+        cell.centerPoint = cell.center
         cell.userName.text = user.userName()
         cell.photo.loadImage(withURL: user.photo(.large)!)
         cell.likes.text = "Likes: " + user.userLikes()
@@ -74,20 +75,26 @@ class PinboardCollectionView: UICollectionView, UICollectionViewDataSource, UICo
         selectedIndex = indexPath
         let cell = collectionView.cellForItem(at: indexPath) as! PhotoViewCell
         collectionView.bringSubview(toFront: cell)
-        cell.focuseIn()
+        
+        if cell.isFocusedIn {
+            cell.flip()
+        } else {
+            cell.focusIn()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! PhotoViewCell
-        cell.focuseOut()
-        selectedIndex = nil
+            cell.focusOut()
+            selectedIndex = nil
     }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let selectedItem = selectedIndex else {return}
             let cell = cellForItem(at: selectedItem) as! PhotoViewCell
-            deselectItem(at: selectedItem, animated: true)
-            cell.focuseOut()
+            deselectItem(at: selectedItem, animated: false)
+            cell.focusOut()
             selectedIndex = nil
     }
     
@@ -95,32 +102,39 @@ class PinboardCollectionView: UICollectionView, UICollectionViewDataSource, UICo
 
 extension PhotoViewCell {
     
-    func focuseIn(){
+    func focusIn(){
         UIView.transition(with: self,
-                          duration: 0.6,
+                          duration: 0.3,
                           options: .curveEaseOut,
                           animations: {
                             self.transform = CGAffineTransform.identity.scaledBy(x: 1.65, y: 1.65)
                             self.center = CGPoint(x: (self.superview?.bounds.midX)!, y: (self.superview?.bounds.midY)!)
+                            self.isFocusedIn = true
         })
     }
     
-    func focuseOut(){
-        self.layer.removeAllAnimations()
+    func focusOut(){
         UIView.transition(with: self,
-                          duration: 0.6,
+                          duration: 0.3,
                           options: .curveEaseOut,
                           animations: {
                             self.transform = CGAffineTransform.identity
-                            self.center = self.centerPoint
+                            self.center = self.centerPoint!
+                            self.isFocusedIn = false
+                            self.isFlipped = false
         })
     }
     
     func flip() {
         UIView.transition(with: self,
-                          duration: 0.6,
+                          duration: 0.3,
                           options: .transitionFlipFromLeft,
                           animations: {
+                            if !self.isFlipped {
+                                self.isFlipped = true
+                            } else {
+                                self.isFlipped = false
+                            }
         })
     }
     
