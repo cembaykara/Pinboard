@@ -6,7 +6,7 @@
 //  Copyright © 2018 Baris Cem Baykara. All rights reserved.
 //
 
-protocol CollectionViewDataFetcherDelegate {
+protocol CollectionViewDataFetcherDelegate: class {
     func didRefresh()
 }
 
@@ -15,7 +15,7 @@ import UIKit
 class PinboardCollectionView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     var fetchedData = [Object]()
-    var fetchDelegate: CollectionViewDataFetcherDelegate?
+    weak var fetchDelegate: CollectionViewDataFetcherDelegate?
     
     let refresher: UIRefreshControl = {
         let controller = UIRefreshControl()
@@ -24,15 +24,19 @@ class PinboardCollectionView: UICollectionView, UICollectionViewDataSource, UICo
         return controller
     }()
 
-    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(frame: frame, collectionViewLayout: layout)
-        
+    private func setupProperties() {
+        allowsMultipleSelection = false
         delegate = self
         dataSource = self
         contentInset = UIEdgeInsetsMake(6.0, 0.0, 12.0, 0.0)
         register(PhotoViewCell.self, forCellWithReuseIdentifier: "photoCell")
         backgroundColor = .clear
         addSubview(refresher)
+    }
+    
+    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(frame: frame, collectionViewLayout: layout)
+        setupProperties()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,13 +56,20 @@ class PinboardCollectionView: UICollectionView, UICollectionViewDataSource, UICo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoViewCell
-        let user = fetchedData[indexPath.row]
+        let userData = fetchedData[indexPath.row]
         cell.centerPoint = cell.center
-        cell.userName.text = user.userName()
-        cell.photo.loadImage(withURL: user.photo(.large)!)
-        cell.likes.text = "Likes: " + user.userLikes()
+        
+        let frontView = cell.sides.frontView as! PhotoViewFront
+        let backView = cell.sides.backView  as! PhotoViewFront
+        
+        frontView.photo.loadImage(withURL: userData.photo(.large))
+        frontView.userName.text = userData.userName
+        
+        backView.containerView.backgroundColor = .red
+        
         return cell
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         cell.alpha = 0
@@ -75,67 +86,23 @@ class PinboardCollectionView: UICollectionView, UICollectionViewDataSource, UICo
         selectedIndex = indexPath
         let cell = collectionView.cellForItem(at: indexPath) as! PhotoViewCell
         collectionView.bringSubview(toFront: cell)
-        
-        if cell.isFocusedIn {
-            cell.flip()
-        } else {
-            cell.focusIn()
-        }
+        cell.focusIn()
+        cell.flipState.flip()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! PhotoViewCell
-            cell.focusOut()
-            selectedIndex = nil
-    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+        cell.flipState.flip()
+    }
 
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let selectedItem = selectedIndex else {return}
             let cell = cellForItem(at: selectedItem) as! PhotoViewCell
             deselectItem(at: selectedItem, animated: false)
+            cell.flipState.flip()
             cell.focusOut()
             selectedIndex = nil
-    }
-    
-}
-
-extension PhotoViewCell {
-    
-    func focusIn(){
-        UIView.transition(with: self,
-                          duration: 0.3,
-                          options: .curveEaseOut,
-                          animations: {
-                            self.transform = CGAffineTransform.identity.scaledBy(x: 1.65, y: 1.65)
-                            self.center = CGPoint(x: (self.superview?.bounds.midX)!, y: (self.superview?.bounds.midY)!)
-                            self.isFocusedIn = true
-        })
-    }
-    
-    func focusOut(){
-        UIView.transition(with: self,
-                          duration: 0.3,
-                          options: .curveEaseOut,
-                          animations: {
-                            self.transform = CGAffineTransform.identity
-                            self.center = self.centerPoint!
-                            self.isFocusedIn = false
-                            self.isFlipped = false
-        })
-    }
-    
-    func flip() {
-        UIView.transition(with: self,
-                          duration: 0.3,
-                          options: .transitionFlipFromLeft,
-                          animations: {
-                            if !self.isFlipped {
-                                self.isFlipped = true
-                            } else {
-                                self.isFlipped = false
-                            }
-        })
     }
     
 }
