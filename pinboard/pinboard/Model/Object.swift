@@ -33,24 +33,28 @@ enum PhotoSize {
 
 extension Object {
     
-    func userName() -> String {
+    
+    var userName: String {
         guard let userName = self.user?.username else {return ""}
         return userName
     }
     
-    func userLikes() -> String {
+    var userLikes: String {
         guard let userLikes = self.likes else {return ""}
         return "\(userLikes)"
     }
     
-    func photo(_ withSize: PhotoSize) -> String?{
+    func photo(_ withSize: PhotoSize) -> String{
         switch withSize {
         case .small:
-            return user?.profileImage?.small
+            guard let small = user?.profileImage?.small else {return ""}
+            return small
         case .medium:
-            return user?.profileImage?.medium
+            guard let medium = user?.profileImage?.medium else {return ""}
+            return medium
         case .large:
-            return user?.profileImage?.large
+            guard let large = user?.profileImage?.large else {return ""}
+            return large
         }
     }
     
