@@ -8,13 +8,13 @@
 
 import Foundation
 
-public enum FetcherError{
+enum FetcherError{
     case requestFailed
     case jsonConversionFailed
     case invalidData
     case responseUnsuccessfull
     
-    public var description: String {
+    var description: String {
         switch self {
         case .requestFailed:
             return "Request Failed"

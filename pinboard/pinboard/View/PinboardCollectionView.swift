@@ -60,16 +60,18 @@ class PinboardCollectionView: UICollectionView, UICollectionViewDataSource, UICo
         cell.centerPoint = cell.center
         
         let frontView = cell.sides.frontView as! PhotoViewFront
-        let backView = cell.sides.backView  as! PhotoViewFront
+        let backView = cell.sides.backView  as! PhotoViewBack
         
-        frontView.photo.loadImage(withURL: userData.photo(.large))
-        frontView.userName.text = userData.userName
         
-        backView.containerView.backgroundColor = .red
+            frontView.photo.loadImage(withURL: userData.coverPhoto)
+
+            backView.photo.loadImage(withURL: userData.photo(.large))
+            backView.userName.text = userData.userName
+            backView.likes.text = "Likes: " + userData.userLikes
+        
         
         return cell
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         cell.alpha = 0
@@ -80,29 +82,10 @@ class PinboardCollectionView: UICollectionView, UICollectionViewDataSource, UICo
         })
     }
     
-    private var selectedIndex: IndexPath?
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedIndex = indexPath
         let cell = collectionView.cellForItem(at: indexPath) as! PhotoViewCell
         collectionView.bringSubview(toFront: cell)
-        cell.focusIn()
         cell.flipState.flip()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! PhotoViewCell
-        cell.flipState.flip()
-    }
-
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let selectedItem = selectedIndex else {return}
-            let cell = cellForItem(at: selectedItem) as! PhotoViewCell
-            deselectItem(at: selectedItem, animated: false)
-            cell.flipState.flip()
-            cell.focusOut()
-            selectedIndex = nil
     }
     
 }

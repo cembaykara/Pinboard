@@ -13,7 +13,7 @@ let cacheHandler = CacheHandler(withSize: 50)
 extension UIImageView {
     
     /// Will set the image property to a remote image from URL String and cache it.
-   public func loadImage(withURL urlStr: String) {
+   func loadImage(withURL urlStr: String) {
     
         // Use this to set a generic image for non-existing photos or leave nil
         self.image = nil
@@ -22,7 +22,7 @@ extension UIImageView {
             self.image = cachedImage
             return
         }
-        
+    
         let url = URL(string: urlStr)
         URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
             if let error = error {

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GenericFetcher
 
 class PinboardViewController: UIViewController, CollectionViewDataFetcherDelegate {
     
@@ -29,10 +28,10 @@ class PinboardViewController: UIViewController, CollectionViewDataFetcherDelegat
     }
     
     func didRefresh() {
+        
         let fetcher = Fetcher()
         var fetchedData = [Object]()
-
-        fetcher.fetch(with: .json, urlStr: "http://pastebin.com/raw/wgkJgazE") { (data: [Object]?, error) in
+        fetcher.fetch(withString: "http://pastebin.com/raw/wgkJgazE") { (data: [Object]?, error) in
             
             guard let receivedData = data else {
                 if let error = error {
@@ -44,9 +43,9 @@ class PinboardViewController: UIViewController, CollectionViewDataFetcherDelegat
             receivedData.forEach({
                 fetchedData.append($0)
             })
-            
-            self.collectionView.reloadData()
+
             self.collectionView.fetchedData = fetchedData
+            self.collectionView.reloadData()
             self.collectionView.refresher.endRefreshing()
         }
     }

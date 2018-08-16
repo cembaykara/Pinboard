@@ -151,3 +151,13 @@ extension Flipable where Self: UIView {
     
 }
 
+extension UIView {
+    
+    func  createShadow() {
+        self.layer.shadowOffset = CGSize(width: 0, height: 3)
+        self.layer.shadowRadius = 5
+        self.layer.shadowOpacity = 0.5
+    }
+    
+}
+

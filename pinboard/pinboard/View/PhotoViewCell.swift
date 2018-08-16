@@ -22,7 +22,7 @@ class PhotoViewCell: FlipableCollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         sides.frontView = PhotoViewFront()
-        sides.backView = PhotoViewFront()
+        sides.backView = PhotoViewBack()
     }
     
     required init?(coder aDecoder: NSCoder) {

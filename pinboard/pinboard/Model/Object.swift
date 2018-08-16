@@ -12,17 +12,22 @@ import Foundation
 struct Object: Decodable {
     var user: User?
     var likes: Int?
+    var links: CoverPhoto?
 }
 
 struct User: Decodable {
-    var username : String?
-    var profileImage : Photos?
+    var username: String?
+    var profileImage: Photos?
 }
 
 struct Photos: Decodable {
     var small: String?
     var medium: String?
     var large: String?
+}
+
+struct CoverPhoto: Decodable {
+    var download: String?
 }
 
 enum PhotoSize {
@@ -42,6 +47,11 @@ extension Object {
     var userLikes: String {
         guard let userLikes = self.likes else {return ""}
         return "\(userLikes)"
+    }
+    
+    var coverPhoto: String {
+        guard let url = self.links?.download else { return ""}
+        return "\(url)"
     }
     
     func photo(_ withSize: PhotoSize) -> String{
